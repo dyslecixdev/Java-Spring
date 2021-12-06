@@ -1,0 +1,29 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+.flexbox {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+}
+.header {
+	width: 20em;
+	margin-top: 2%;
+}
+.title {
+	color: salmon;
+	text-align: left;
+}
+.table {
+	border: 1em pink solid;
+	width: 20em;
+	height: 10em;
+	padding: 1%;
+	text-align: left;
+	margin-top: 2%;
+}
+.body {
+	border-top: 0.1em solid pink;
+}
