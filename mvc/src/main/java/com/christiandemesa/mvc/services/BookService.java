@@ -18,6 +18,7 @@ public class BookService {
  }
  // Returns all the books (Read)
  public List<Book> allBooks() {
+	 // Note how each of these methods call on a method in BookRepository.java.
      return bookRepository.findAll();
  }
  // Creates a book
@@ -41,4 +42,5 @@ public class BookService {
  public void deleteBook(Long id) {
 	 bookRepository.deleteById(id);
  }
+ 
 }
