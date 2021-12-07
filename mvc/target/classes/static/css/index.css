@@ -1,0 +1,20 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+table {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+th {
+  background-color: grey;
+}
+tr:nth-child(odd) {
+	background-color: #f2f2f2;
+}
+table, th, td {
+	width: 30em;
+	padding: 1% 2%;
+	text-align: center;
+	border-right: 1px solid black;
+}
