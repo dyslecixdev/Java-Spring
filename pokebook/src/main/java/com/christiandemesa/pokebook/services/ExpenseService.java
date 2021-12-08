@@ -37,8 +37,14 @@ public class ExpenseService {
     	}
     }
     
+    // This method updates an expense.
     public Expense updateExpense(Expense exp) {
     	return expRepo.save(exp);
+    }
+    
+    // This method deletes an expense.
+    public void deleteExpense(Long id) {
+    	expRepo.deleteById(id);
     }
     
 }

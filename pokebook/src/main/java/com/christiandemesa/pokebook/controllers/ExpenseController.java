@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -69,6 +70,22 @@ public class ExpenseController {
 			expService.updateExpense(expense);
 			return "redirect:/expenses";
 		}
+	}
+	
+	// Route to a page to show one expense with the option to delete it.
+	@RequestMapping("/expenses/{id}")
+	public String readOne(@PathVariable("id") Long id, Model model) {
+		Expense expense = expService.oneExpense(id);
+		model.addAttribute("expense", expense);
+		return "/expenses/delete.jsp";
+	}
+	
+	// Used @DeleteMapping as a shorthand for @RequestMapping(value="/expenses/{id}", method=RequestMethod.DELETE).
+	@DeleteMapping("/expenses/{id}")
+	public String delete(@PathVariable("id") Long id) {
+		// Deletes the expense, and redirects to index.jsp.
+		expService.deleteExpense(id);
+		return "redirect:/expenses";
 	}
 	
 }
