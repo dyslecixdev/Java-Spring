@@ -37,4 +37,8 @@ public class ExpenseService {
     	}
     }
     
+    public Expense updateExpense(Expense exp) {
+    	return expRepo.save(exp);
+    }
+    
 }

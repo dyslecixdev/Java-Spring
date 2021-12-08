@@ -17,6 +17,7 @@
 	            <th>Expense</th>
 	            <th>Vendor</th>
 	            <th>Amount</th>
+	            <th>Actions</th>
 	        </tr>
 	    </thead>
 	    <tbody>
@@ -26,6 +27,7 @@
 	         	<td><c:out value="${exp.vendor}"/></td>
 	         	<!-- This formats the number entered into $0.00. Note you need to include the above tag to use ftm:formatNumber -->
 	         	<td><fmt:formatNumber value="${exp.amount}" type="currency"/></td>
+	         	<td><a href="/expenses/edit/${exp.id}">edit</a></td>
 	         </tr>
 	         </c:forEach>
 	    </tbody>
