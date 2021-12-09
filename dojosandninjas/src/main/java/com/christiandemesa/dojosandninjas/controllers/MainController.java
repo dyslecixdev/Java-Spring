@@ -2,6 +2,7 @@ package com.christiandemesa.dojosandninjas.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,9 +60,9 @@ public class MainController {
 	
 	// Creates a new ninja
 	@PostMapping("/ninjas/new")
-	public String createNinja(@Valid @ModelAttribute("ninja") Ninja ninja, Model model, BindingResult result) {
+	// If the order was (Model model, BindingResult result) then you will get a whitelabel error from attempting to submit a form that does not meet at least one of the validations.
+	public String createNinja(@Valid @ModelAttribute("ninja") Ninja ninja, BindingResult result, Model model) {
 		if(result.hasErrors()) {
-			// I need List<Dojo> to keep the drop-down menu from going blank, but if I keep it my error messages do not appear.
 			List<Dojo> dojos = mainServ.allDojos();
 			model.addAttribute("dojos", dojos);
 			return "newNinja.jsp";
