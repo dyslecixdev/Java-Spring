@@ -10,6 +10,7 @@ import com.christiandemesa.loginandregistration.models.User;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
     
+    // A query to find the user by their email.
     Optional<User> findByEmail(String email);
     
 }
