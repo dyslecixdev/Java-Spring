@@ -1,6 +1,5 @@
 package com.christiandemesa.loginandregistration.controllers;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -23,13 +22,16 @@ public class MainController {
 	@Autowired
     private UserService userServ;
     
+	// Routes to the login and registration page.
     @GetMapping("/")
     public String index(Model model) {
+    	// Adds both User and LoginUser to the same model.
         model.addAttribute("newUser", new User());
         model.addAttribute("newLogin", new LoginUser());
         return "index.jsp";
     }
     
+    // Registers a user.
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("newUser") User newUser, BindingResult result, Model model, HttpSession session) {
         userServ.register(newUser, result);
@@ -37,13 +39,15 @@ public class MainController {
             model.addAttribute("newLogin", new LoginUser());
             return "index.jsp";
         }
+        // Sessions the user's id.
         session.setAttribute("user_id", newUser.getId());
         return "redirect:/home";
     }
     
+    // Logs in a user.
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin, BindingResult result, Model model, HttpSession session) {
-        User user = userServ.login(newLogin, result);
+    	User user = userServ.login(newLogin, result);
         if(result.hasErrors()) {
             model.addAttribute("newUser", new User());
             return "index.jsp";
@@ -55,15 +59,20 @@ public class MainController {
     // Routes to the home page.
     @GetMapping("/home")
     public String home(HttpSession session) {
-    	return "home.jsp";
+    	// If a user did not register or login, it redirects to the login and registration page.
+    	if(session.getAttribute("user_id") != null) {
+    		return "home.jsp";
+    	}
+    	else {
+    		return "redirect:/";
+    	}
     }
     
+    // Logs out a user.
     @RequestMapping("/logout")
-    public String logout(HttpSession session, HttpServletRequest request) {
-    session = request.getSession(false);
-    if(session != null) {
-    	session.invalidate();
-    }
+    public String logout(HttpSession session) {
+    // Removes the session.
+    session.removeAttribute("user_id");
     return "redirect:/";
     }
     
