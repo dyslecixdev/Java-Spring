@@ -8,7 +8,7 @@
 <title>Login & Registration</title>
 </head>
 <body>
-    <h1>Welcome <c:out value="${newUser.userName}"/>!</h1>
+    <h1>Welcome!</h1>
     <h1><a href="/logout">Logout</a></h1>
 </body>
 </html>
