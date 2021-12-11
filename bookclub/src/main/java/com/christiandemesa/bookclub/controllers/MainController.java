@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.christiandemesa.bookclub.models.Book;
@@ -116,6 +117,37 @@ public class MainController {
     	}
     	else {
     		return "redirect:/";
+    	}
+    }
+    
+    // Routes to the edit book page.
+    @GetMapping("/books/{bookId}/edit")
+    public String editBook(@PathVariable("bookId") Long id, Model model, HttpSession session) {
+    	if(session.getAttribute("user_id") != null /*&& session.getAttribute("user_id") == */) {
+    		Book book = mainServ.oneBook(id);
+        	model.addAttribute("book", book);
+        	return "/bookclubs/editBook.jsp";
+    	}
+    	/*else if(session.getAttribute("user_id") != null) {
+    		Book book = mainServ.oneBook(id);
+        	model.addAttribute("book", book);
+        	return "redirect:/books/{bookId}";
+    	}*/
+    	else {
+    		return "redirect:/";
+    	}
+    }
+    
+    // Updates a book, and redirects to the show book page.
+    // WARNING this method creates a book instead of updating a book.
+    @PutMapping("/books/{bookId}/edit")
+    public String updateBook(@Valid @ModelAttribute("book") Book book, BindingResult result) {
+    	if(result.hasErrors()) {
+    		return "/books/{bookId}/edit.jsp";
+    	}
+    	else {
+    		mainServ.updateBook(book);
+    		return "redirect:/books/{bookId}";
     	}
     }
     

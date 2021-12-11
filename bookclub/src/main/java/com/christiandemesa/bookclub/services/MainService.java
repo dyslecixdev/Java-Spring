@@ -103,6 +103,7 @@ public class MainService {
     }
     
     // This method updates a book.
+    // WARNING this method creates a book instead of updating a book.
     public Book updateBook(Book book) {
     	return bookRepo.save(book);
     }
